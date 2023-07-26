@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Note from "./components/Note";
+import noteService from "./services/notes";
+
+console.log(noteService);
 
 const App = () => {
   // console.log("App component rendered", props);
@@ -8,8 +10,8 @@ const App = () => {
   const [newNote, setNewNote] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:3001/notes").then((res) => {
-      console.log(res);
+    noteService.getAll().then((res) => {
+      // console.log(res);
       setNotes(res.data);
     });
   }, []);
@@ -21,10 +23,20 @@ const App = () => {
       content: newNote,
       important: Math.random() < 0.5,
     };
-    axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+    noteService.create(noteObject).then((response) => {
       // console.log(response);
       setNotes(notes.concat(response.data));
       setNewNote("");
+    });
+  };
+
+  const toggleImportance = (id) => {
+    // console.log(`importance of ${id} need to be toggled!!!`);
+    const note = notes.find((n) => n.id === id);
+    const changedNote = { ...note, important: !note.important };
+
+    noteService.update(id, changedNote).then((response) => {
+      setNotes(notes.map((n) => (n.id === id ? response.data : n)));
     });
   };
 
@@ -39,7 +51,11 @@ const App = () => {
       <ul>
         <ul>
           {notes.map((note) => (
-            <Note key={note.id} note={note} />
+            <Note
+              key={note.id}
+              note={note}
+              toggleImportance={() => toggleImportance(note.id)}
+            />
           ))}
         </ul>
       </ul>
