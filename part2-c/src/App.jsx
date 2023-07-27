@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Note from "./components/Note";
 import noteService from "./services/notes";
 
-console.log(noteService);
+// console.log(noteService.getAll());
 
 const App = () => {
   // console.log("App component rendered", props);
@@ -10,10 +10,7 @@ const App = () => {
   const [newNote, setNewNote] = useState("");
 
   useEffect(() => {
-    noteService.getAll().then((res) => {
-      // console.log(res);
-      setNotes(res.data);
-    });
+    noteService.getAll().then((res) => setNotes(res));
   }, []);
 
   const addNote = (e) => {
@@ -25,7 +22,7 @@ const App = () => {
     };
     noteService.create(noteObject).then((response) => {
       // console.log(response);
-      setNotes(notes.concat(response.data));
+      setNotes(notes.concat(response));
       setNewNote("");
     });
   };
@@ -35,9 +32,15 @@ const App = () => {
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
 
-    noteService.update(id, changedNote).then((response) => {
-      setNotes(notes.map((n) => (n.id === id ? response.data : n)));
-    });
+    noteService
+      .update(id, changedNote)
+      .then((response) => {
+        setNotes(notes.map((n) => (n.id === id ? response : n)));
+      })
+      .catch((err) => {
+        console.log(err.message);
+        alert("Trying to update hardcoded value");
+      });
   };
 
   const handleChange = (e) => {
