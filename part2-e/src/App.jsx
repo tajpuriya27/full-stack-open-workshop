@@ -6,7 +6,7 @@ import "./index.css";
 
 const App = () => {
   // useStates:
-  const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState(null);
   const [newNote, setNewNote] = useState("");
   const [errMessage, setErrMessage] = useState(null);
 
@@ -72,6 +72,10 @@ const App = () => {
 
     return <div className="error">{message}</div>;
   };
+
+  if (!notes) {
+    return null;
+  }
 
   return (
     <div>
