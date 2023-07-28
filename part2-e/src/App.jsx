@@ -5,14 +5,23 @@ import "./index.css";
 // console.log(noteService.getAll());
 
 const App = () => {
-  // console.log("App component rendered", props);
+  // useStates:
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("");
+  const [errMessage, setErrMessage] = useState(null);
 
+  //UseEffect
   useEffect(() => {
-    noteService.getAll().then((res) => setNotes(res));
+    noteService
+      .getAll()
+      .then((res) => setNotes(res))
+      .catch((err) => {
+        setErrMessage(`Server is not seding data: ${err.message}`);
+        console.log(err);
+      });
   }, []);
 
+  //Adding new note via form submit
   const addNote = (e) => {
     e.preventDefault();
     // console.log("Form submitted", e.target);
@@ -27,6 +36,7 @@ const App = () => {
     });
   };
 
+  // Toggling importance
   const toggleImportance = (id) => {
     // console.log(`importance of ${id} need to be toggled!!!`);
     const note = notes.find((n) => n.id === id);
@@ -38,19 +48,35 @@ const App = () => {
         setNotes(notes.map((n) => (n.id === id ? response : n)));
       })
       .catch((err) => {
+        setErrMessage(`Note '${note.content}' was already removed from server`);
+        setTimeout(() => {
+          setErrMessage(null);
+        }, 5000);
+        setNotes(notes.filter((n) => n.id !== id));
         console.log(err.message);
-        alert("Trying to update hardcoded value");
+        // alert("Trying to update hardcoded value");
       });
   };
 
+  // Taking input from input field and updating NewNote State.
   const handleChange = (e) => {
-    console.log("from handleChange fun", e.target.value);
+    // console.log("from handleChange fun", e.target.value);
     setNewNote(e.target.value);
+  };
+
+  // Customize Error Message using React component
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null;
+    }
+
+    return <div className="error">{message}</div>;
   };
 
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errMessage} />
       <ul>
         {notes.map((note) => (
           <Note
