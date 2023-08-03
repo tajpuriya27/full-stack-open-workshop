@@ -18,14 +18,14 @@ const App = () => {
 
   const addNote = (e) => {
     e.preventDefault();
-    // console.log("Form submitted", e.target);
+    console.log("Form submitted", e.target);
     const noteObject = {
       content: newNote,
       important: Math.random() < 0.5,
     };
     noteService.create(noteObject).then((response) => {
       // console.log(response);
-      setNotes(notes.concat(response));
+      setNotes(notes.concat(response.data));
       setNewNote("");
     });
   };
