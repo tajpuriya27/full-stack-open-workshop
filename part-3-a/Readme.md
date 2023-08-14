@@ -53,3 +53,13 @@ app.get("/api/notes", (request, response) => {
 
 ...
 ```
+
+### Part3.3 fetching single resources using express params
+
+```js
+app.get("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const note = notes.find((note) => note.id === id);
+  response.json(note);
+});
+```
