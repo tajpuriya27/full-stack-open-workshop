@@ -1,0 +1,16 @@
+{
+  "name": "part3-a-backend",
+  "version": "1.0.0",
+  "description": "This is workshop done with respect to part3-a-backend of fullstack open",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sunil Tajpuriya",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
