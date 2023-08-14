@@ -63,3 +63,13 @@ app.get("/api/notes/:id", (request, response) => {
   response.json(note);
 });
 ```
+
+### Part3.4 Error handling if tried to fetch wrong resource
+
+```diff
+app.get("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const note = notes.find((note) => note.id === id);
++ note ? response.json(note) : response.status(404).end();
+});
+```
