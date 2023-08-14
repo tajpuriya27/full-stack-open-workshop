@@ -73,3 +73,22 @@ app.get("/api/notes/:id", (request, response) => {
 + note ? response.json(note) : response.status(404).end();
 });
 ```
+
+### Part3.5 Deleting single resource and handling error if wrong resource id is provided.
+
+```js
+app.delete("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  let isNotePresent = false;
+  notes = notes.filter((note) => {
+    if (note.id === id) {
+      isNotePresent = true;
+      return false;
+    } else {
+      return true;
+    }
+  });
+
+  isNotePresent ? response.status(204).end() : response.status(404).end();
+});
+```
