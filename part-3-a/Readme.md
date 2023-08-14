@@ -2,7 +2,7 @@
 
 ## Part 3.a - Node.js and Express
 
-`Part3.1` : Code commited on part3.1 - simple webserver with node's inbuilt http library.
+### `Part3.1` : Code commited on part3.1 - simple webserver with node's inbuilt http library.
 
 ```js
 const http = require("http");
@@ -33,4 +33,23 @@ const app = http.createServer((request, response) => {
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
+```
+
+### `part3.2` Simple webserver with express.js
+
+```js
+const express = require("express");
+const app = express();
+
+... notes
+
+app.get("/", (request, response) => {
+  response.send("<h1>Hello World!</h1>");
+});
+
+app.get("/api/notes", (request, response) => {
+  response.json(notes);
+});
+
+...
 ```
