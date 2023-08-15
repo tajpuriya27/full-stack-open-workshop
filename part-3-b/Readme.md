@@ -30,3 +30,7 @@ app.use(cors());
 ### `part3b.2` Added all functionality to talk to frontend by backend
 
 ### `part3b.3` Build Single page application i.e. Build frontend and added to backend.
+
+### `part3b.4` Added proxy to vite config file and relative url
+
+- we don't need to use CORS while using vite proxy. Removed from backend server.js
