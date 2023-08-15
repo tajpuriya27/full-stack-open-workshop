@@ -58,6 +58,22 @@ const App = () => {
       });
   };
 
+  // Delete the note
+  const delFun = (id) => {
+    noteService
+      .del(id)
+      .then(() => {
+        setNotes(notes.filter((n) => n.id !== id));
+      })
+      .catch((err) => {
+        setErrMessage(`Delete error: ${err.message}!! Removed from front-end.`);
+        setTimeout(() => {
+          setErrMessage(null);
+        }, 5000);
+        setNotes(notes.filter((n) => n.id !== id));
+      });
+  };
+
   // Taking input from input field and updating NewNote State.
   const handleChange = (e) => {
     // console.log("from handleChange fun", e.target.value);
@@ -87,6 +103,7 @@ const App = () => {
             key={note.id}
             note={note}
             toggleImportance={() => toggleImportance(note.id)}
+            delFun={() => delFun(note.id)}
           />
         ))}
       </ul>

@@ -26,3 +26,5 @@ Then:
 const cors = require("cors");
 app.use(cors());
 ```
+
+### `part3b.2` Added all functionality to talk to frontend by backend

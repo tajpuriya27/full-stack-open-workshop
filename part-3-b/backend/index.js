@@ -80,6 +80,14 @@ app.post("/api/notes", (request, response) => {
   response.json(note);
 });
 
+// updating resource
+app.put("/api/notes/:id", (request, response) => {
+  const id = Number(request.params.id);
+  const editedNote = request.body;
+  notes = notes.map((n) => (n.id === id ? editedNote : n));
+  response.json(editedNote);
+});
+
 const PORT = 3001;
 app.listen(PORT);
 console.log(`Server running on port ${PORT}`);
