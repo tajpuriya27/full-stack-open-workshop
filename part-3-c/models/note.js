@@ -15,6 +15,7 @@ mongoose
   })
   .catch((error) => {
     console.log("error connecting to MongoDB:", error.message);
+    process.exit(1);
   });
 
 const noteSchema = new mongoose.Schema({

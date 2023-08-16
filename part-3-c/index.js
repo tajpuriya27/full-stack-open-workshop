@@ -37,32 +37,33 @@ app.get("/api/notes", (request, response) => {
 
 // fetching single resources
 app.get("/api/notes/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const note = notes.find((note) => note.id === id);
-  note ? response.json(note) : response.status(404).end();
+  const id = request.params.id;
+  Note.findById(id)
+    .then((note) => {
+      note ? response.json(note) : response.status(404).send("wrong id");
+    })
+    .catch((err) => {
+      console.log("error");
+      response.status(404).send(err);
+    });
 });
 
 // deleting single resources
 app.delete("/api/notes/:id", (request, response) => {
-  const id = Number(request.params.id);
-  let isNotePresent = false;
-  notes = notes.filter((note) => {
-    if (note.id === id) {
-      isNotePresent = true;
-      return false;
-    } else {
-      return true;
-    }
-  });
-
-  isNotePresent ? response.status(204).end() : response.status(404).end();
+  const id = request.params.id;
+  Note.findByIdAndDelete(id)
+    .then((res) => {
+      console.log(res);
+      res
+        ? response.status(204).end()
+        : response.status(404).send("already deleted!!");
+    })
+    .catch(() => {
+      response.status(404).end();
+    });
 });
 
 // adding data to server
-const generateId = () => {
-  const maxId = notes.length > 0 ? Math.max(...notes.map((n) => n.id)) : 0;
-  return maxId + 1;
-};
 
 app.post("/api/notes", (request, response) => {
   const body = request.body;
@@ -73,15 +74,14 @@ app.post("/api/notes", (request, response) => {
     });
   }
 
-  const note = {
+  const note = new Note({
     content: body.content,
     important: body.important || false,
-    id: generateId(),
-  };
+  });
 
-  notes = notes.concat(note);
-
-  response.json(note);
+  note.save().then((savedNote) => {
+    response.json(savedNote);
+  });
 });
 
 // updating resource
