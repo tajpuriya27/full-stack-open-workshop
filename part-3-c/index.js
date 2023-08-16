@@ -7,24 +7,6 @@ const app = express();
 app.use(express.json());
 app.use(express.static("dist"));
 
-let notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    important: true,
-  },
-  {
-    id: 2,
-    content: "Browser can execute only JavaScript",
-    important: false,
-  },
-  {
-    id: 3,
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true,
-  },
-];
-
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!</h1>");
 });
@@ -86,10 +68,15 @@ app.post("/api/notes", (request, response) => {
 
 // updating resource
 app.put("/api/notes/:id", (request, response) => {
-  const id = Number(request.params.id);
-  const editedNote = request.body;
-  notes = notes.map((n) => (n.id === id ? editedNote : n));
-  response.json(editedNote);
+  const id = request.params.id;
+  const body = request.body;
+  Note.findByIdAndUpdate(id, body)
+    .then((res) => {
+      response.json(res);
+    })
+    .catch((error) => {
+      response.status(404).send({ error: "malformated id" });
+    });
 });
 
 const PORT = process.env.PORT || 3000;
