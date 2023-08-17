@@ -7,9 +7,7 @@ const middleware = require("./utils/middleware");
 const logger = require("./utils/logger");
 const mongoose = require("mongoose");
 
-console.log("app top");
 mongoose.set("strictQuery", false);
-console.log("clg from app.js");
 
 logger.info("connecting to", config.MONGODB_URI);
 
@@ -23,10 +21,9 @@ mongoose
   });
 
 app.use(cors());
-app.use(express.static("dist"));
+app.use(express.static("build"));
 app.use(express.json());
 app.use(middleware.requestLogger);
-console.log("hjlshfl;shflfh");
 
 app.use("/api/notes", notesRouter);
 
