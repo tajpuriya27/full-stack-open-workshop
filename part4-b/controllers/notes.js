@@ -3,7 +3,7 @@ const Note = require("../models/note");
 
 notesRouter.get("/", (request, response) => {
   Note.find({}).then((notes) => {
-    response.json(notes);
+    response.status(200).json(notes);
   });
 });
 
