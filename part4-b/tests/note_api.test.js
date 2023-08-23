@@ -30,7 +30,7 @@ describe("when there is initially some notes saved", () => {
 
     const contents = response.body.map((r) => r.content);
 
-    expect(contents).toContain("Browser can execute only JavaScript");
+    expect(contents).toContain("Notes created for testing purpose 01");
   });
 });
 
