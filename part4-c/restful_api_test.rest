@@ -1,0 +1,15 @@
+GET http://localhost:3001/api/notes HTTP/1.1
+
+###
+GET http://localhost:3001/api/notes/64dca48834432a7a646a0c0d
+
+###
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+    "content": "Note created from post route02"
+}
+
+###
+DELETE http://localhost:3001/api/notes/64dca4d82d1ef66091e6f7bd
