@@ -21,7 +21,11 @@ usersRouter.post("/", async (request, response) => {
 
 usersRouter.get("/", async (req, res, next) => {
   try {
-    const allUser = await User.find({});
+    const allUser = await User.find({}).populate("notes", {
+      content: 1,
+      important: 1,
+    });
+    // const allUser = await User.find({});
     res.json(allUser);
   } catch (error) {
     next(error);
