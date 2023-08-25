@@ -66,6 +66,7 @@ describe("addition of a new note", () => {
     const newNote = {
       content: "async/await simplifies making async calls",
       important: true,
+      userId: "64e851ddf178c335d4c4bce9",
     };
 
     await api
@@ -84,6 +85,7 @@ describe("addition of a new note", () => {
   test("fails with status code 400 if data invalid", async () => {
     const newNote = {
       important: true,
+      userId: "64e851ddf178c335d4c4bce9",
     };
 
     await api.post("/api/notes").send(newNote).expect(400);

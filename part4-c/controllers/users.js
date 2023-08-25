@@ -19,4 +19,13 @@ usersRouter.post("/", async (request, response) => {
   response.status(201).json(savedUser);
 });
 
+usersRouter.get("/", async (req, res, next) => {
+  try {
+    const allUser = await User.find({});
+    res.json(allUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = usersRouter;
