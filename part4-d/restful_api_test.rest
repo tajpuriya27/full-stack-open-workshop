@@ -8,7 +8,8 @@ POST http://localhost:3001/api/notes
 Content-Type: application/json
 
 {
-    "content": "Note created from post route02"
+    "content": "Note created from post route02",
+    "userId": "64e8f73130356e529114af34"
 }
 
 ###
@@ -22,4 +23,14 @@ Content-Type: application/json
     "username" : "testing",
     "name" : "the coder",
     "password" : "test123"
+}
+
+
+###
+POST https://localhost:3001/api/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "testing",
+    "password": "test123"
 }
