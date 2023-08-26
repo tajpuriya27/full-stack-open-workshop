@@ -5,6 +5,7 @@ GET http://localhost:3001/api/notes/64dca48834432a7a646a0c0d
 
 ###
 POST http://localhost:3001/api/notes
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3RpbmciLCJpZCI6IjY0ZThmNzMxMzAzNTZlNTI5MTE0YWYzNCIsImlhdCI6MTY5Mjk5OTE2NCwiZXhwIjoxNjkyOTk5MjI0fQ.t7Ttkz7VHLIa8aEYrxcP4Y_EO3GfqxZXBWLeqxIa-0g
 Content-Type: application/json
 
 {
@@ -27,7 +28,7 @@ Content-Type: application/json
 
 
 ###
-POST https://localhost:3001/api/login/ HTTP/1.1
+POST http://localhost:3001/api/login/ HTTP/1.1
 Content-Type: application/json
 
 {
