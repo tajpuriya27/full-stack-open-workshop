@@ -1,6 +1,12 @@
 import axios from "axios";
 const baseUrl = "http://localhost:3001/api/notes";
 
+let token = null;
+
+const setToken = (newToken) => {
+  token = `Bearer ${newToken}`;
+};
+
 const getAll = () => {
   const testingObj = {
     content: "HardCoded value",
@@ -18,7 +24,12 @@ const getAll = () => {
 const create = (newObject) => {
   // const req = axios.post(baseUrl, newObject);
   // return req.then((res) => res.data);
-  return axios.post(baseUrl, newObject).then((res) => res.data);
+  const config = {
+    headers: { Authorization: token },
+  };
+
+  // const response = await axios.post(baseUrl, newObject, config)
+  return axios.post(baseUrl, newObject, config).then((res) => res.data);
 };
 
 const update = (id, newObject) => {
@@ -29,4 +40,4 @@ const del = (id) => {
   return axios.delete(`${baseUrl}/${id}`).then();
 };
 
-export default { getAll, create, update, del };
+export default { getAll, create, update, del, setToken };
