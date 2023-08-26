@@ -8,7 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:ui": "cd ../backend && rm -rf dist && cd ../frontend/ && npm run build && mv src/dist/ ../backend"
+    "build:ui": "rm -rf ../dist && npm run build && mv src/dist/ ../"
   },
   "keywords": [],
   "author": "",
