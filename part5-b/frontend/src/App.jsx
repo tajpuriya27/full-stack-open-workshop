@@ -4,6 +4,8 @@ import noteService from "./services/notes";
 import "./index.css";
 import loginService from "./services/login";
 import LoginForm from "./components/LoginForm";
+import Togglable from "./components/Togglable";
+import NoteForm from "./components/NoteForm";
 // console.log(noteService.getAll());
 
 const App = () => {
@@ -14,7 +16,6 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  const [loginVisible, setLoginVisible] = useState(false);
 
   //UseEffect
   useEffect(() => {
@@ -99,12 +100,6 @@ const App = () => {
       });
   };
 
-  // Taking input from input field and updating NewNote State.
-  const handleChange = (e) => {
-    // console.log("from handleChange fun", e.target.value);
-    setNewNote(e.target.value);
-  };
-
   // Customize Error Message using React component
   const Notification = ({ message }) => {
     if (message === null) {
@@ -138,36 +133,6 @@ const App = () => {
     }
   };
 
-  const loginForm = () => {
-    const hideWhenVisible = { display: loginVisible ? "none" : "" };
-    const showWhenVisible = { display: loginVisible ? "" : "none" };
-
-    return (
-      <div>
-        <div style={hideWhenVisible}>
-          <button onClick={() => setLoginVisible(true)}>Click to log in</button>
-        </div>
-        <div style={showWhenVisible}>
-          <LoginForm
-            username={username}
-            password={password}
-            handleUsernameChange={({ target }) => setUsername(target.value)}
-            handlePasswordChange={({ target }) => setPassword(target.value)}
-            handleSubmit={handleLogin}
-          />
-          <button onClick={() => setLoginVisible(false)}>cancel</button>
-        </div>
-      </div>
-    );
-  };
-
-  const noteForm = () => (
-    <form onSubmit={addNote}>
-      <input value={newNote} onChange={handleChange} />
-      <button type="submit">save</button>
-    </form>
-  );
-
   if (!notes) {
     return null;
   }
@@ -177,13 +142,23 @@ const App = () => {
       <h1>Notes</h1>
       <Notification message={errMessage} />
 
-      {!user && loginForm()}
-      {user && (
-        <div>
-          <p>{user.name} logged in</p>
-          {noteForm()}
-        </div>
-      )}
+      <Togglable buttonLabel="Click to login">
+        <LoginForm
+          username={username}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleSubmit={handleLogin}
+        />
+      </Togglable>
+      {user && <p>{user.name} logged in</p>}
+      <Togglable buttonLabel="Add note">
+        <NoteForm
+          newNote={newNote}
+          addNote={addNote}
+          handleChange={({ target }) => setNewNote(target.value)}
+        />
+      </Togglable>
 
       <ul>
         {notes.map((note) => (
