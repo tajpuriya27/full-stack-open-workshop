@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Note from "./components/Note";
 import noteService from "./services/notes";
 import "./index.css";
@@ -16,6 +16,9 @@ const App = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
+
+  const noteFormRef = useRef();
+  const loginFormRef = useRef();
 
   //UseEffect
   useEffect(() => {
@@ -41,6 +44,7 @@ const App = () => {
   const addNote = (e) => {
     e.preventDefault();
     // console.log("Form submitted", e.target);
+    noteFormRef.current.toggleVisibility();
     const noteObject = {
       content: newNote,
       important: Math.random() < 0.5,
@@ -112,7 +116,7 @@ const App = () => {
   // Handle login
   const handleLogin = async (event) => {
     event.preventDefault();
-
+    loginFormRef.current.toggleVisibility();
     try {
       const user = await loginService.login({
         username,
@@ -137,12 +141,9 @@ const App = () => {
     return null;
   }
 
-  return (
-    <div>
-      <h1>Notes</h1>
-      <Notification message={errMessage} />
-
-      <Togglable buttonLabel="Click to login">
+  const loginForm = () => {
+    return (
+      <Togglable buttonLabel="Click to login" ref={loginFormRef}>
         <LoginForm
           username={username}
           password={password}
@@ -151,14 +152,33 @@ const App = () => {
           handleSubmit={handleLogin}
         />
       </Togglable>
-      {user && <p>{user.name} logged in</p>}
-      <Togglable buttonLabel="Add note">
+    );
+  };
+
+  const noteForm = () => {
+    return (
+      <Togglable buttonLabel="Add note" ref={noteFormRef}>
         <NoteForm
           newNote={newNote}
           addNote={addNote}
           handleChange={({ target }) => setNewNote(target.value)}
         />
       </Togglable>
+    );
+  };
+
+  return (
+    <div>
+      <h1>Notes</h1>
+      <Notification message={errMessage} />
+
+      {!user && loginForm()}
+      {user && (
+        <div>
+          <p>{user.name} logged in</p>
+          {noteForm()}
+        </div>
+      )}
 
       <ul>
         {notes.map((note) => (
