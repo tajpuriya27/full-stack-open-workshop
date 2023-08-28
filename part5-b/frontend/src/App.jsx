@@ -33,10 +33,16 @@ const App = () => {
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedNoteappUser");
+    const tokenExpire = window.localStorage.getItem("tokenExpiry");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
       setUser(user);
       noteService.setToken(user.token);
+    }
+    if (new Date() > tokenExpire) {
+      window.localStorage.removeItem("loggedNoteappUser");
+      window.localStorage.removeItem("tokenExpiry");
+      setUser(null);
     }
   }, []);
 
@@ -122,9 +128,11 @@ const App = () => {
         username,
         password,
       });
+      let tokenExpirationTime = 1 * 60 * 1000;
+      let tokenExpiry = Date.now() + tokenExpirationTime;
 
       window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
-
+      window.localStorage.setItem("tokenExpiry", tokenExpiry);
       noteService.setToken(user.token);
       setUser(user);
       setUsername("");
