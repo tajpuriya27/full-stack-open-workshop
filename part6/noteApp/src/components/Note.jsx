@@ -14,7 +14,18 @@ const Note = ({ note, handleClick }) => {
 // Notes component is called  container component, as it contains some application logic
 const Notes = () => {
   const dispatch = useDispatch();
-  const notes = useSelector((state) => state.note);
+  const notes = useSelector(({ filter, note }) => {
+    switch (filter) {
+      case "ALL":
+        return note;
+      case "IMPORTANT":
+        return note.filter((n) => n.important);
+      case "NOT-IMPORTANT":
+        return note.filter((n) => !n.important);
+      default:
+        return null;
+    }
+  });
 
   return (
     <ul>

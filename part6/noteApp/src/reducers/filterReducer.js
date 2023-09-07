@@ -1,5 +1,7 @@
 const filterReducer = (state = "ALL", action) => {
-  console.log(`Logging from FilterReducer:: state: ${state}, action:`, action);
+  if (action.type === "SET_FILTER") {
+    return action.payload;
+  }
   return state;
 };
 
