@@ -12,13 +12,12 @@ const initialState = [
 ];
 
 const noteReducer = (state = initialState, action) => {
+  console.log(`Logging from NoteReducer:: state: ${state}, action:`, action);
   switch (action.type) {
     case "NEW_NOTE": {
       return state.concat(action.payload);
     }
     case "TOGGLE_IMPORTANCE": {
-      console.log(state);
-
       return state.map((note) =>
         note.id === action.payload.id
           ? { ...note, important: !note.important }
