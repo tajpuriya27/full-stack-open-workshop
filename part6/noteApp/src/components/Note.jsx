@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { toggleImportanceof } from "../reducers/noteReducer";
+import { toggleImportanceOf } from "../reducers/noteReducer";
 
 // Note component is presentational in React terminology as is not aware that the event handler it gets as props dispatches an action.
 const Note = ({ note, handleClick }) => {
@@ -33,7 +33,7 @@ const Notes = () => {
         <Note
           key={note.id}
           note={note}
-          handleClick={() => dispatch(toggleImportanceof(note.id))}
+          handleClick={() => dispatch(toggleImportanceOf(note.id))}
         />
       ))}
     </ul>

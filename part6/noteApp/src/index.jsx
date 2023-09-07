@@ -1,16 +1,17 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
-import { createStore, combineReducers } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import noteReducer from "./reducers/noteReducer";
 import filterReducer from "./reducers/filterReducer";
 import { Provider } from "react-redux";
 import App from "./App";
 
-const reducer = combineReducers({
+const reducer = {
   note: noteReducer,
   filter: filterReducer,
-});
-const store = createStore(reducer);
+};
+console.log(reducer);
+const store = configureStore({ reducer });
 console.log("printing the `state` from index.jsx", store.getState());
 
 const root = createRoot(document.getElementById("root"));
