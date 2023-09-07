@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleImportanceof } from "../reducers/noteReducer";
 
+// Note component is presentational in React terminology as is not aware that the event handler it gets as props dispatches an action.
 const Note = ({ note, handleClick }) => {
   return (
     <li onClick={handleClick}>
@@ -10,6 +11,7 @@ const Note = ({ note, handleClick }) => {
   );
 };
 
+// Notes component is called  container component, as it contains some application logic
 const Notes = () => {
   const dispatch = useDispatch();
   const notes = useSelector((state) => state);
