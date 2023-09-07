@@ -42,27 +42,34 @@ store.dispatch({
 });
 
 const generateId = () => Number((Math.random() * 1000000).toFixed(0));
+const createnote = (content) => {
+  return {
+    type: "NEW_NOTE",
+    payload: {
+      content,
+      important: false,
+      id: generateId(),
+    },
+  };
+};
+
+const toggleImportanceof = (id) => {
+  return {
+    type: "TOGGLE_IMPORTANCE",
+    payload: { id },
+  };
+};
 
 const App = () => {
   const addNote = (event) => {
     event.preventDefault();
     const content = event.target.note.value;
     event.target.note.value = "";
-    store.dispatch({
-      type: "NEW_NOTE",
-      payload: {
-        content,
-        important: false,
-        id: generateId(),
-      },
-    });
+    store.dispatch(createnote(content));
   };
 
-  const toggleImportanceOf = (id) => {
-    store.dispatch({
-      type: "TOGGLE_IMPORTANCE",
-      payload: { id },
-    });
+  const toggleImportance = (id) => {
+    store.dispatch(toggleImportanceof(id));
   };
 
   return (
@@ -73,7 +80,7 @@ const App = () => {
       </form>
       <ul>
         {store.getState().map((note) => (
-          <li key={note.id} onClick={() => toggleImportanceOf(note.id)}>
+          <li key={note.id} onClick={() => toggleImportance(note.id)}>
             {note.content} <strong>{note.important ? "important" : ""}</strong>
           </li>
         ))}
