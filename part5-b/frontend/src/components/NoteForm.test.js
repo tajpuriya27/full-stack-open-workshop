@@ -13,8 +13,11 @@ test("<NoteForm /> updates parent state and calls onSubmit", async () => {
   //   const input = screen.getByRole("textbox");
   //   await user.type(input, "testing a form...");
 
-  const inputs = screen.getAllByRole("textbox");
-  await user.type(inputs[0], "testing a form...");
+  //   const inputs = screen.getAllByRole("textbox");
+  //   await user.type(inputs[0], "testing a form...");
+
+  const input = screen.getByPlaceholderText("Write note content here");
+  await user.type(input, "testing a form...");
 
   const sendButton = screen.getByText("save");
   await user.click(sendButton);
