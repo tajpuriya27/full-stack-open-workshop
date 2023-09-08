@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "build:ui": "rm -rf ../dist && npm run build && mv src/dist/ ../",
     "lint": "eslint .",
-    "test": "jest"
+    "test": "jest",
+    "test-coverage": "npm test -- --coverage --collectCoverageFrom='src/**/*.{jsx,js}'"
   },
   "keywords": [],
   "author": "",
