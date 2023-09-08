@@ -58,4 +58,27 @@ describe("Note app", function () {
       });
     });
   });
+
+  it.only("login fails with wrong password", function () {
+    cy.contains("Click to login").click();
+    cy.get("#username").type("tajpuriya");
+    cy.get("#password").type("wrong");
+    cy.get("#login-button").click();
+
+    // cy.get(".error").contains("Wrong credentials");
+    // exact same syntax as above:
+    // cy.get(".error").should("contain", "Wrong credentials");
+
+    // cy.get(".error").should("contain", "Wrong credentials");
+    // cy.get(".error").should("have.css", "color", "rgb(255, 0, 0)");
+    // cy.get(".error").should("have.css", "border-style", "solid");
+    // Same synatx as above:
+    cy.get(".error")
+      .should("contain", "Wrong credentials")
+      .and("have.css", "color", "rgb(255, 0, 0)")
+      .and("have.css", "border-style", "solid");
+
+    // cy.get("html").should("not.contain", "Sunil Tajpuriya logged in");
+    cy.contains("Matti Luukkainen logged in").should("not.exist");
+  });
 });
