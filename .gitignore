@@ -1,3 +1,4 @@
 # Ignoring below files and folders:
 node_modules
 .env
+coverage/
