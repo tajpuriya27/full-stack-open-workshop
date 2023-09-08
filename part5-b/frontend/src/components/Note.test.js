@@ -27,6 +27,22 @@ test("renders content", () => {
   );
 });
 
+test("renders content1", async () => {
+  const note = {
+    content: "Does not work anymore :(",
+    important: true,
+  };
+
+  render(<Note note={note} />);
+
+  // const element = screen.getByText("Does not work anymore :(", {
+  //   exact: false,
+  // });
+  const element = await screen.findByText("Does not work anymore :(");
+
+  expect(element).toBeDefined();
+});
+
 test("clicking the button calls event handler once", async () => {
   const note = {
     content: "Component testing is done with react-testing-library",
