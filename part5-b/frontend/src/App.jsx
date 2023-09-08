@@ -11,7 +11,6 @@ import NoteForm from "./components/NoteForm";
 const App = () => {
   // useStates:
   const [notes, setNotes] = useState(null);
-  const [newNote, setNewNote] = useState("");
   const [errMessage, setErrMessage] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -47,20 +46,13 @@ const App = () => {
   }, []);
 
   //Adding new note via form submit
-  const addNote = (e) => {
-    e.preventDefault();
-    // console.log("Form submitted", e.target);
+  const createNote = (noteToCreate) => {
     noteFormRef.current.toggleVisibility();
-    const noteObject = {
-      content: newNote,
-      important: Math.random() < 0.5,
-    };
     noteService
-      .create(noteObject)
+      .create(noteToCreate)
       .then((response) => {
         // console.log(response);
         setNotes(notes.concat(response));
-        setNewNote("");
       })
       .catch((err) => {
         // console.log(err.response.data.error);
@@ -166,11 +158,7 @@ const App = () => {
   const noteForm = () => {
     return (
       <Togglable buttonLabel="Add note" ref={noteFormRef}>
-        <NoteForm
-          newNote={newNote}
-          addNote={addNote}
-          handleChange={({ target }) => setNewNote(target.value)}
-        />
+        <NoteForm createNote={createNote} />
       </Togglable>
     );
   };
