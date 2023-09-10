@@ -30,6 +30,7 @@ Cypress.Commands.add("login", ({ username, password }) => {
     password,
   }).then(({ body }) => {
     window.localStorage.setItem("loggedNoteappUser", JSON.stringify(body));
+    window.localStorage.setItem("tokenExpiry", JSON.stringify(body));
     cy.visit("http://localhost:5173");
   });
 });
