@@ -32,11 +32,6 @@ describe("Note app", function () {
       cy.login({ username: "tajpuriya", password: "tajpuriya27" });
     });
 
-    it("checking", function () {
-      cy.visit("");
-      cy.contains("Add note");
-    });
-
     it("a new note can be created", function () {
       cy.contains("Add note").click();
       cy.get("#note-input").type("a note created by cypress");
@@ -58,6 +53,19 @@ describe("Note app", function () {
           .click();
 
         cy.contains("another note cypress").contains("make important");
+      });
+    });
+    describe("and several notes exist", function () {
+      beforeEach(function () {
+        cy.createNote({ content: "first note", important: false });
+        cy.createNote({ content: "second note", important: false });
+        cy.createNote({ content: "third note", important: false });
+      });
+
+      it("one of those can be made important", function () {
+        cy.contains("second note").contains("make important").click();
+
+        cy.contains("second note").contains("make not important");
       });
     });
   });
@@ -84,4 +92,6 @@ describe("Note app", function () {
     // cy.get("html").should("not.contain", "Sunil Tajpuriya logged in");
     cy.contains("Matti Luukkainen logged in").should("not.exist");
   });
+
+  describe("when logged in", function () {});
 });
