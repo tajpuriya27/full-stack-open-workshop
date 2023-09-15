@@ -2,7 +2,7 @@
   "notes": [
     {
       "content": "the app state is in redux store",
-      "important": true,
+      "important": false,
       "id": 1
     },
     {
@@ -16,49 +16,74 @@
       "id": 3
     },
     {
-      "content": "Compilation of Notes",
-      "important": false,
+      "content": "Buddha was born in Nepal.",
+      "important": true,
       "id": 4
     },
     {
-      "content": "Trying to be world class software engineer from Nepal.",
-      "important": false,
+      "content": "Time management need to be done!",
+      "important": true,
       "id": 5
     },
     {
-      "content": "Trying to be world class software engineer from Nepal.",
-      "important": false,
+      "content": "Testing Note1",
+      "important": true,
       "id": 6
     },
     {
-      "content": "hello",
+      "content": "TEST NOTE",
       "important": true,
       "id": 7
     },
     {
-      "content": "Bandaki, Hajurla.",
+      "content": "Buddha was born in Nepal.",
       "important": true,
       "id": 8
     },
     {
-      "content": "hello",
-      "important": true,
+      "content": "Buddha was born in Nepal.",
+      "important": false,
       "id": 9
-    },
-    {
-      "content": "Trying to be world class software engineer from Nepal.",
-      "important": true,
-      "id": 10
     },
     {
       "content": "Buddha was born in Nepal.",
       "important": true,
-      "id": 11
+      "id": 10
     },
     {
       "content": "Trying to be world class software engineer from Nepal.",
       "important": true,
+      "id": 11
+    },
+    {
+      "content": "Buddha was born in Nepal.",
+      "important": true,
       "id": 12
+    },
+    {
+      "content": "Buddha was born in Nepal.",
+      "important": true,
+      "id": 13
+    },
+    {
+      "content": "zyxnn",
+      "important": true,
+      "id": 14
+    },
+    {
+      "content": "Buddha was born in Nepal.",
+      "important": true,
+      "id": 15
+    },
+    {
+      "content": "Hello there!",
+      "important": true,
+      "id": 16
+    },
+    {
+      "content": "Hello Hey Hi",
+      "important": true,
+      "id": 17
     }
   ]
 }

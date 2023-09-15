@@ -4,8 +4,12 @@ import { getNotes, createNote, updateNote } from "./requests";
 const App = () => {
   const queryClient = useQueryClient();
   const newNoteMutation = useMutation(createNote, {
-    onSuccess: () => {
-      queryClient.invalidateQueries("notes");
+    onSuccess: (newNote) => {
+      // queryClient.invalidateQueries("notes");
+      console.log("new Note:", newNote);
+      const returnNotes = queryClient.getQueryData(["notes"]);
+      console.log("ckg from", returnNotes);
+      queryClient.setQueryData(["notes"], returnNotes.concat(newNote));
     },
   });
 
@@ -30,6 +34,7 @@ const App = () => {
   const result = useQuery({
     queryKey: ["notes"],
     queryFn: getNotes,
+    refetchOnWindowFocus: false,
   });
   // console.log(JSON.parse(JSON.stringify(result)));
 
