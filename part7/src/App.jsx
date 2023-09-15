@@ -1,11 +1,11 @@
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Link,
   useParams,
   useNavigate,
   Navigate,
+  useMatch,
 } from "react-router-dom";
 import { useState } from "react";
 
@@ -26,12 +26,26 @@ const Home = () => (
   </div>
 );
 
-const Note = ({ notes }) => {
-  const id = useParams().id;
-  const note = notes.find((n) => n.id === Number(id));
+// const Note = ({ notes }) => {
+//   const id = useParams().id;
+//   const note = notes.find((n) => n.id === Number(id));
+//   return (
+//     <div>
+//       <h2>Single note form Note component</h2>
+//       <h2>{note.content}</h2>
+//       <div>{note.user}</div>
+//       <div>
+//         <strong>{note.important ? "important" : ""}</strong>
+//       </div>
+//     </div>
+//   );
+// };
+
+const Note = (props) => {
+  const note = props.noteOne;
+  console.log(note);
   return (
     <div>
-      <h2>Single note form Note component</h2>
       <h2>{note.content}</h2>
       <div>{note.user}</div>
       <div>
@@ -120,8 +134,13 @@ const App = () => {
     padding: 5,
   };
 
+  const match = useMatch("/notes/:id");
+  const noteOne = match
+    ? notes.find((note) => note.id === Number(match.params.id))
+    : null;
+
   return (
-    <Router>
+    <>
       <div>
         <Link style={padding} to="/">
           home
@@ -142,7 +161,7 @@ const App = () => {
       </div>
 
       <Routes>
-        <Route path="/notes/:id" element={<Note notes={notes} />} />
+        <Route path="/notes/:id" element={<Note noteOne={noteOne} />} />
         <Route path="/notes" element={<Notes notes={notes} />} />
         <Route
           path="/users"
@@ -155,7 +174,7 @@ const App = () => {
       <div>
         <i>Note app, Department of Computer Science 2023</i>
       </div>
-    </Router>
+    </>
   );
 };
 
