@@ -26,6 +26,7 @@ const Notes = () => {
         return null;
     }
   });
+  console.log("check", notes);
   return (
     <ul>
       {notes.map((note) => (
