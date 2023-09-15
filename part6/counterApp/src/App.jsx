@@ -1,32 +1,31 @@
-const App = (props) => {
-  const store = props.storeToSubscribe;
-  return (
-    <>
-      <h1>Counter with Redux</h1>
-      <h2>{store.getState()}</h2>
-      <button
-        onClick={() => {
-          store.dispatch({ type: "increment" });
-        }}
-      >
-        Add
-      </button>
-      <button
-        onClick={() => {
-          store.dispatch({ type: "makeZero" });
-        }}
-      >
-        Zero
-      </button>
-      <button
-        onClick={() => {
-          store.dispatch({ type: "decrement" });
-        }}
-      >
-        Minus
-      </button>
-    </>
-  );
-};
+import { useReducer } from 'react'
 
-export default App;
+const counterReducer = (state, action) => {
+  switch (action.type) {
+    case "INC":
+        return state + 1
+    case "DEC":
+        return state - 1
+    case "ZERO":
+        return 0
+    default:
+        return state
+  }
+}
+
+const App = () => {
+  const [counter, counterDispatch] = useReducer(counterReducer, 0)
+
+  return (
+    <div>
+      <div>{counter}</div>
+      <div>
+        <button onClick={() => counterDispatch({ type: "INC"})}>+</button>
+        <button onClick={() => counterDispatch({ type: "DEC"})}>-</button>
+        <button onClick={() => counterDispatch({ type: "ZERO"})}>0</button>
+      </div>
+    </div>
+  )
+}
+
+export default App
