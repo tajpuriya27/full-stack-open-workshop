@@ -2,7 +2,6 @@ import {
   Routes,
   Route,
   Link,
-  useParams,
   useNavigate,
   Navigate,
   useMatch,
@@ -25,21 +24,6 @@ const Home = () => (
     </p>
   </div>
 );
-
-// const Note = ({ notes }) => {
-//   const id = useParams().id;
-//   const note = notes.find((n) => n.id === Number(id));
-//   return (
-//     <div>
-//       <h2>Single note form Note component</h2>
-//       <h2>{note.content}</h2>
-//       <div>{note.user}</div>
-//       <div>
-//         <strong>{note.important ? "important" : ""}</strong>
-//       </div>
-//     </div>
-//   );
-// };
 
 const Note = (props) => {
   const note = props.noteOne;
@@ -104,7 +88,7 @@ const Login = (props) => {
 };
 
 const App = () => {
-  const [notes, setNotes] = useState([
+  const [notes] = useState([
     {
       id: 1,
       content: "HTML is easy",
