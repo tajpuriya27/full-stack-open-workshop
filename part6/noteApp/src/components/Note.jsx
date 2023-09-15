@@ -26,7 +26,6 @@ const Notes = () => {
         return null;
     }
   });
-
   return (
     <ul>
       {notes.map((note) => (

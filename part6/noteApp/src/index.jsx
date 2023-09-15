@@ -14,12 +14,6 @@ console.log(reducer);
 const store = configureStore({ reducer });
 console.log("printing the `state` from index.jsx", store.getState());
 
-// noteService.getAll().then((notes) =>
-//   notes.forEach((note) => {
-//     store.dispatch(appendNote(note));
-//   })
-// );
-
 const root = createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
@@ -27,4 +21,4 @@ root.render(
   </Provider>
 );
 
-store.subscribe(() => console.log("logged from subsribe", store.getState()));
+// store.subscribe(() => console.log("logged from subsribe", store.getState()));
