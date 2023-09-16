@@ -1,43 +1,30 @@
-import { useState } from "react";
-
-const useCounter = () => {
-  const [value, setValue] = useState(0);
-
-  const increase = () => {
-    setValue(value + 1);
-  };
-
-  return {
-    value,
-    increase,
-  };
-};
+import { useCounter } from "./CutomHook";
 
 const App = () => {
+  const counter = useCounter();
   const left = useCounter();
   const right = useCounter();
 
   return (
-    <div>
-      {left.value}
-      <button onClick={left.increase}>left</button>
-      <button onClick={right.increase}>right</button>
-      {right.value}
-    </div>
+    <>
+      <div>
+        <h2>useCounter - CustomHook1</h2>
+        <div>{counter.value}</div>
+        <button onClick={counter.increase}>plus</button>
+        <button onClick={counter.decrease}>minus</button>
+        <button onClick={counter.zero}>zero</button>
+      </div>
+      <hr />
+      <div>
+        <h2>useCounter - CustomHook2</h2>
+        {left.value}
+        <button onClick={left.increase}>left</button>
+        <button onClick={right.increase}>right</button>
+        {right.value}
+      </div>
+      <hr />
+    </>
   );
 };
-
-// const App = () => {
-//   const counter = useCounter();
-
-//   return (
-//     <div>
-//       <div>{counter.value}</div>
-//       <button onClick={counter.increase}>plus</button>
-//       <button onClick={counter.decrease}>minus</button>
-//       <button onClick={counter.zero}>zero</button>
-//     </div>
-//   );
-// };
 
 export default App;
