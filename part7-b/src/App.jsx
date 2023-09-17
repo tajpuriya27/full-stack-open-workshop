@@ -32,22 +32,11 @@ const App = () => {
       <div>
         <h2>Custom Hook used in Form</h2>
         <form>
-          name:
-          <input type={name.type} value={name.value} onChange={name.onChange} />
+          name: <input {...name} />
           <br />
-          birthdate:
-          <input
-            type={birthdate.type}
-            value={birthdate.value}
-            onChange={birthdate.onChange}
-          />
+          birthdate: <input {...birthdate} />
           <br />
-          height:
-          <input
-            type={height.type}
-            value={height.value}
-            onChange={height.onChange}
-          />
+          height: <input {...height} />
         </form>
         <div>
           {name.value} || {birthdate.value} || {height.value}
