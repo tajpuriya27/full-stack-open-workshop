@@ -1,16 +1,10 @@
 import {
-  Container,
   TableContainer,
   TableBody,
   TableRow,
   TableCell,
   Paper,
-  Button,
-  TextField,
   Alert,
-  AppBar,
-  Toolbar,
-  IconButton,
   Table,
 } from "@mui/material";
 import {
@@ -22,6 +16,37 @@ import {
   useMatch,
 } from "react-router-dom";
 import { useState } from "react";
+
+import styled from "styled-components";
+
+const Button = styled.button`
+  background: Bisque;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border: 2px solid Chocolate;
+  border-radius: 3px;
+`;
+
+const Input = styled.input`
+  margin: 0.25em;
+`;
+
+const Page = styled.div`
+  padding: 1em;
+  background: papayawhip;
+`;
+
+const Navigation = styled.div`
+  background: BurlyWood;
+  padding: 1em;
+`;
+
+const Footer = styled.div`
+  background: Chocolate;
+  padding: 1em;
+  margin-top: 1em;
+`;
 
 const Home = () => (
   <div>
@@ -99,13 +124,18 @@ const Login = (props) => {
       <h2>login</h2>
       <form onSubmit={onSubmitFun}>
         <div>
-          <TextField label="username" name="username" />
+          Username:
+          <Input name="username" />
+          {/* <TextField label="username" name="username" /> */}
         </div>
         <div>
-          <TextField label="password" type="password" />
+          Password:
+          <Input type="password" />
+          {/* <TextField label="password" type="password" /> */}
         </div>
         <div>
-          <Button variant="contained" color="primary" type="submit">
+          {/* <Button variant="contained" color="primary" type="submit">login</Button> */}
+          <Button type="submit" primary="">
             login
           </Button>
         </div>
@@ -146,57 +176,51 @@ const App = () => {
     }, 1500);
   };
 
+  const padding = {
+    padding: 5,
+  };
+
   const match = useMatch("/notes/:id");
   const noteOne = match
     ? notes.find((note) => note.id === Number(match.params.id))
     : null;
 
   return (
-    <Container>
-      <div className="container">
-        {message && <Alert severity="success">{message}</Alert>}
-        <AppBar position="static">
-          <Toolbar>
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-            ></IconButton>
-            <Button color="inherit" component={Link} to="/">
-              home
-            </Button>
-            <Button color="inherit" component={Link} to="/notes">
-              notes
-            </Button>
-            <Button color="inherit" component={Link} to="/users">
-              users
-            </Button>
-            {user ? (
-              <em>{user} logged in</em>
-            ) : (
-              <Button color="inherit" component={Link} to="/login">
-                login
-              </Button>
-            )}
-          </Toolbar>
-        </AppBar>
+    <Page>
+      {message && <Alert severity="success">{message}</Alert>}
+      <Navigation>
+        <Link style={padding} to="/">
+          home
+        </Link>
+        <Link style={padding} to="/notes">
+          notes
+        </Link>
+        <Link style={padding} to="/users">
+          users
+        </Link>
+        {user ? (
+          <em>{user} logged in</em>
+        ) : (
+          <Link style={padding} to="/login">
+            login
+          </Link>
+        )}
+      </Navigation>
 
-        <Routes>
-          <Route path="/notes/:id" element={<Note noteOne={noteOne} />} />
-          <Route path="/notes" element={<Notes notes={notes} />} />
-          <Route
-            path="/users"
-            element={user ? <Users /> : <Navigate replace to="/login" />}
-          />
-          <Route path="/login" element={<Login onLogin={login} />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-
-        <div>
-          <i>Note app, Department of Computer Science 2023</i>
-        </div>
-      </div>
-    </Container>
+      <Routes>
+        <Route path="/notes/:id" element={<Note noteOne={noteOne} />} />
+        <Route path="/notes" element={<Notes notes={notes} />} />
+        <Route
+          path="/users"
+          element={user ? <Users /> : <Navigate replace to="/login" />}
+        />
+        <Route path="/login" element={<Login onLogin={login} />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+      <Footer>
+        <em>Note app, Department of Computer Science 2022</em>
+      </Footer>
+    </Page>
   );
 };
 
