@@ -1,0 +1,16 @@
+{
+  "notes": [
+    {
+      "id": 1,
+      "content": "testing from json-server"
+    },
+    {
+      "id": 2,
+      "content": "testing from json-server2"
+    },
+    {
+      "content": "testing from frontend",
+      "id": 3
+    }
+  ]
+}
