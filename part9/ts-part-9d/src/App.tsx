@@ -1,3 +1,6 @@
+import { CoursePart } from "./types";
+const assertNever = (value: never): never => value;
+
 function App() {
   const courseName = "Half Stack application development";
   const courseParts: CoursePart[] = [
@@ -29,7 +32,25 @@ function App() {
     },
   ];
 
-  return <></>;
+  return (
+    <>
+      <h2>{courseName}</h2>
+      {courseParts.map((val) => (
+        <div key={val.name}>
+          {val.name} {val.exerciseCount}
+          {val.kind === "basic" ? (
+            <div>{val.description}</div>
+          ) : val.kind === "group" ? (
+            <div>{val.groupProjectCount}</div>
+          ) : val.kind === "background" ? (
+            <div>{val.backgroundMaterial}</div>
+          ) : (
+            assertNever(val)
+          )}
+        </div>
+      ))}
+    </>
+  );
 }
 
 export default App;
